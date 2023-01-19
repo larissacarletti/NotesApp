@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background ="@color/rose"
+    tools:ignore="ExtraText"
+    tools:context=".HomeFragment">
+
+    <RelativeLayout
+        android:id="@+id/top_app_bar"
+        android:layout_width="412dp"
+        android:layout_height="64dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="VisualLintBounds" />
+
+    <TextView
+        android:id="@+id/headline"
+        android:layout_width="294dp"
+        android:layout_height="41dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="@font/montserrat_bold"
+        android:gravity="center_horizontal|top"
+        android:lineHeight="28sp"
+        android:lineSpacingExtra="1sp"
+        android:text="@string/headline"
+        android:textColor="@color/dark_pink"
+        android:textSize="22sp"
+        android:translationY="-0.59sp"
+        app:layout_constraintBottom_toBottomOf="@+id/top_app_bar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/top_app_bar"
+        tools:ignore="TextSizeCheck,UnusedAttribute"
+        />
+
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/top_app_bar"
+        android:padding="5dp"
+        tools:listitem="@layout/list_item"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabNote"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:background="@drawable/baseline_edit_24"
+        android:backgroundTint="@color/pink"
+        android:contentDescription="Floating Button"
+        android:elevation="@dimen/cardview_default_elevation"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/baseline_edit_24"
+        app:tint="@color/dark_pink"
+
+        tools:ignore="HardcodedText,RedundantDescriptionCheck" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
