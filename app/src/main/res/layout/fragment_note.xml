@@ -8,7 +8,7 @@
     android:padding="10dp"
     tools:context=".NoteFragment">
 
-    <androidx.appcompat.widget.Toolbar
+    <Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -16,7 +16,32 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-    </androidx.appcompat.widget.Toolbar>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+
+            <ImageView
+                android:id="@+id/image_backArrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/back_arrow"
+                android:padding="8dp"/>
+
+            <ImageView
+                android:id="@+id/image_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/delete"
+                android:layout_alignParentEnd="true"
+                android:padding="8dp"
+                android:layout_marginEnd="14dp">
+            </ImageView>
+
+
+        </RelativeLayout>
+
+    </Toolbar>
 
     <EditText
         android:id="@+id/et_title"
@@ -30,7 +55,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        android:fontFamily="@font/montserrat_semibold">
+        android:fontFamily="@font/montserrat_semibold"
+        android:textColorHint="@color/dark_pink">
 
     </EditText>
 
@@ -49,10 +75,12 @@
         android:background="@null"
         android:inputType="textMultiLine"
         android:lineSpacingMultiplier="1.8"
+        app:layout_constraintHorizontal_bias="0.0"
         android:gravity="top"
-        tools:ignore="HardcodedText">
-
-
+        tools:ignore="HardcodedText"
+        android:ems="10"
+        android:textColorHint="@color/dark_pink"
+        android:layout_marginLeft="5dp">
     </EditText>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

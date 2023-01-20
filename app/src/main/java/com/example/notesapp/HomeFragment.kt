@@ -5,11 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.example.notesapp.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment(R.layout.fragment_home) {
         private var _binding : FragmentHomeBinding? = null
-        private val binding = _binding!!
+        private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -25,14 +26,13 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         super.onViewCreated(view, savedInstanceState)
 
         binding.fabNote.setOnClickListener {
-
-
+            val action = HomeFragmentDirections.actionHomeFragmentToNoteFragment()
+            findNavController().navigate(action)
         }
+
+
+
     }
-
-
-
-
 
 
 
@@ -43,16 +43,5 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-    }
+}
 
