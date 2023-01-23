@@ -6,4 +6,5 @@
     <string name="titulo_da_anota_o">Título da anotação</string>
     <string name="note">Note</string>
     <string name="title">Title</string>
+    <string name="blank"> </string>
 </resources>

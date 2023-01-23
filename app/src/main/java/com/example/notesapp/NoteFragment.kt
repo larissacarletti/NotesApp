@@ -16,7 +16,7 @@ class NoteFragment : Fragment(R.layout.fragment_note) {
 
     private lateinit var note : Note
     private lateinit var oldNote : Note
-    private lateinit var isUpdated = false
+    private var isUpdated = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,16 +26,6 @@ class NoteFragment : Fragment(R.layout.fragment_note) {
         _binding = FragmentNoteBinding.inflate(inflater,container,false)
 
         return binding.root
-
-        binding.
-
-
-
-
-
-
-
-
 
 
     }
