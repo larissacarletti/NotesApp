@@ -1,5 +1,6 @@
 package com.example.notesapp
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -18,6 +19,7 @@ class NoteFragment : Fragment(R.layout.fragment_note) {
     private lateinit var oldNote : Note
     private var isUpdated = false
 
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -26,6 +28,15 @@ class NoteFragment : Fragment(R.layout.fragment_note) {
         _binding = FragmentNoteBinding.inflate(inflater,container,false)
 
         return binding.root
+
+
+        try{
+
+
+
+
+            binding.etTitle.setText()
+        }
 
 
     }

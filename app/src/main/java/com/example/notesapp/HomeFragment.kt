@@ -1,6 +1,7 @@
 package com.example.notesapp
 
 import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 
 import android.view.LayoutInflater
@@ -21,6 +22,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         private val binding get() = _binding!!
         lateinit var adapter : NotesAdapter
         lateinit var viewModel : NoteViewModel
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,7 +49,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private fun initUI() = binding.run{
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = StaggeredGridLayoutManager(2, LinearLayout.VERTICAL)
-        adapter = NotesAdapter(this, this@HomeFragment)
+        adapter = NotesAdapter(this@HomeFragment, this@HomeFragment)
         recyclerView.adapter = adapter
 
         val getContent =
@@ -57,6 +59,13 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     if(note != null) viewModel.insertNote(note)
                 }
             }
+
+
+    }
+
+    override fun onItemClicked(note: Note) {
+        val intent = Intent(this@HomeFragment, NoteFragment::class.java)
+
 
 
     }
