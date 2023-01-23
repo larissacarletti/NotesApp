@@ -14,18 +14,5 @@
         android:name="androidx.navigation.fragment.NavHostFragment"
         app:defaultNavHost= "true"
         app:navGraph="@navigation/nav_graph">
-
     </androidx.fragment.app.FragmentContainerView>
-
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-    </androidx.appcompat.widget.Toolbar>
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

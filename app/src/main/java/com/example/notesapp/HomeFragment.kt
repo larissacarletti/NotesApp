@@ -18,10 +18,11 @@ import com.example.notesapp.models.Note
 import com.example.notesapp.models.NoteViewModel
 
 class HomeFragment : Fragment(R.layout.fragment_home) {
-        private var _binding : FragmentHomeBinding? = null
-        private val binding get() = _binding!!
-        lateinit var adapter : NotesAdapter
-        lateinit var viewModel : NoteViewModel
+
+    private var _binding: FragmentHomeBinding? = null
+    private val binding get() = _binding!!
+    private lateinit var adapter: NotesAdapter
+    private lateinit var viewModel: NoteViewModel
 
 
     override fun onCreateView(
@@ -29,38 +30,33 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding= FragmentHomeBinding.inflate(inflater,container,false)
-
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
-
-        initUI()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        initUI()
         binding.fabNote.setOnClickListener {
             val action = HomeFragmentDirections.actionHomeFragmentToNoteFragment()
             findNavController().navigate(action)
         }
-
     }
 
-    private fun initUI() = binding.run{
+    private fun initUI() = binding.run {
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = StaggeredGridLayoutManager(2, LinearLayout.VERTICAL)
         adapter = NotesAdapter(requireContext(), this@HomeFragment)
         recyclerView.adapter = adapter
 
-        val getContent =
-            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-                if (result.resultCode == Activity.RESULT_OK){
-                    val note = result.data?.getSerializableExtra("note") as? Note
-                    if(note != null) viewModel.insertNote(note)
-                }
+        val getContent = registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+        ) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val note = result.data?.getSerializableExtra("note") as? Note
+                if (note != null) viewModel.insertNote(note)
             }
-
-
+        }
     }
 
 
@@ -68,8 +64,5 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         super.onDestroy()
         _binding = null
     }
-
-
-
 }
 
