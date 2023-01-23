@@ -30,14 +30,6 @@ class NoteFragment : Fragment(R.layout.fragment_note) {
         return binding.root
 
 
-        try{
-
-
-
-
-            binding.etTitle.setText()
-        }
-
 
     }
 

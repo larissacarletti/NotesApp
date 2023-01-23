@@ -49,7 +49,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private fun initUI() = binding.run{
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = StaggeredGridLayoutManager(2, LinearLayout.VERTICAL)
-        adapter = NotesAdapter(this@HomeFragment, this@HomeFragment)
+        adapter = NotesAdapter(requireContext(), this@HomeFragment)
         recyclerView.adapter = adapter
 
         val getContent =
@@ -62,14 +62,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
 
     }
-
-    override fun onItemClicked(note: Note) {
-        val intent = Intent(this@HomeFragment, NoteFragment::class.java)
-
-
-
-    }
-
 
 
     override fun onDestroy() {
