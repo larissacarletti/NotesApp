@@ -42,8 +42,6 @@ class NoteFragment : Fragment(R.layout.fragment_note) {
             val action = NoteFragmentDirections.actionNoteFragmentToHomeFragment2(title, note)
             findNavController().navigate(action)
             viewModel = ViewModelProvider(this@NoteFragment)[NoteViewModel::class.java]
-            // Vai precisar alterar isso aqui, eu to deixando o id como 1 só pra teste
-            // o banco vai precisar auto gerar o id das notas
             viewModel.insertNote(Note(title = title, note = note))
         }
 
