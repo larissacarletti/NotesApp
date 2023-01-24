@@ -1,9 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
     <style name="MaterialAlertDialog.App" parent="MaterialAlertDialog.Material3">
         <item name="shapeAppearance">@style/ShapeAppearance.App.MediumComponent</item>
         <item name="shapeAppearanceOverlay">@null</item>
         <item name="backgroundColor">@color/rose</item>
+    </style>
+
+    <style name="Base.MaterialAlertDialog.MaterialComponents.Title.Panel" parent="android:Widget" tools:ignore="PrivateResource">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingLeft">?attr/dialogPreferredPadding</item>
+        <item name="android:paddingRight">?attr/dialogPreferredPadding</item>
+        <item name="android:paddingTop">@dimen/abc_dialog_padding_top_material</item>
+        <item name="android:orientation">horizontal</item>
     </style>
 
     <style name="MaterialAlertDialog.App.Title.Text" parent="MaterialAlertDialog.Material3.Title.Text">
@@ -11,17 +21,31 @@
         <item name="android:gravity">center</item>
         <item name="android:fontFamily">@font/montserrat_semibold</item>
         <item name="android:textSize">18sp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:singleLine">true</item>
+        <item name="layout_constraintBaseline_toBottomOf">@style/MaterialAlertDialog.Material3.Title.Icon</item>
     </style>
 
     <style name="MaterialAlertDialog.App.Body.Text" parent = "MaterialAlertDialog.Material3.Body.Text">
         <item name="android:textColor">@color/dark_pink</item>
-        <item name="android:padding">5dp</item>
-        <item name="android:textSize">18sp</item>
+        <item name="android:paddingLeft">15dp</item>
+        <item name="android:textSize">16sp</item>
         <item name="android:fontFamily">@font/montserrat_semibold</item>
+        <item name="android:lineSpacingExtra">3sp</item>
     </style>
 
     <style name="Widget.App.Button" parent="Widget.Material3.Button.TextButton.Dialog">
         <item name="android:textColor">@color/dark_pink</item>
+    </style>
+
+    <style name="Base.MaterialAlertDialog.MaterialComponents.Icon" parent="android:Widget">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">30dip</item>
+        <item name="android:scaleType">fitCenter</item>
+        <item name="android:src">@null</item>
+        <item name="android:contentDescription">@null</item>
+        <item name="android:importantForAccessibility" tools:targetApi="jelly_bean">no</item>
 
     </style>
 

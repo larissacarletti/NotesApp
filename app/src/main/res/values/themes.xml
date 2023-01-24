@@ -18,10 +18,13 @@
     <style name="ThemeOverlay.App.MaterialAlertDialog" parent="ThemeOverlay.Material3.MaterialAlertDialog">
         <item name="colorPrimary">@color/rose</item>
         <item name="colorSecondary">@color/dark_pink</item>
-        <item name="colorSurface">@color/dark_pink</item>
+        <item name="colorSurface">@color/rose</item>
         <item name="colorOnSurface">@color/dark_pink</item>
-        <item name="materialAlertDialogTitleTextStyle">@style/MaterialAlertDialog.Material3</item>
-        <item name="buttonBarPositiveButtonStyle">@style/MaterialAlertDialog.Material3</item>
-        <item name="buttonBarNegativeButtonStyle">@style/MaterialAlertDialog.Material3</item>
+        <item name="materialAlertDialogTitleIconStyle">@style/Base.MaterialAlertDialog.MaterialComponents.Icon</item>
+        <item name="materialAlertDialogTitleTextStyle">@style/MaterialAlertDialog.App.Title.Text</item>
+        <item name="buttonBarPositiveButtonStyle">@style/Widget.App.Button</item>
+        <item name="buttonBarNegativeButtonStyle">@style/Widget.App.Button</item>
+        <item name="materialAlertDialogBodyTextStyle">@style/MaterialAlertDialog.App.Body.Text</item>
+        <item name="materialAlertDialogTitlePanelStyle">@style/Base.MaterialAlertDialog.MaterialComponents.Title.Panel</item>
     </style>
 </resources>
