@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.notesapp.HomeFragment
@@ -14,7 +15,7 @@ import com.example.notesapp.models.Note
 class NotesAdapter(
     private val context: Context,
     private val listener: HomeFragment
-    ) : RecyclerView.Adapter<NotesAdapter.NoteViewHolder>() {
+) : RecyclerView.Adapter<NotesAdapter.NoteViewHolder>() {
     private val notesList = ArrayList<Note>()
     private val fullList = ArrayList<Note>()
 
@@ -31,7 +32,7 @@ class NotesAdapter(
             note.setText(currentNote.note)
         }
         //holder.notesLayout.setOnClickListener {
-            //listener.onItemClicked()
+        //listener.onItemClicked()
         //}
     }
 
@@ -49,20 +50,14 @@ class NotesAdapter(
 
     inner class NoteViewHolder(private val binding: ListItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-
         val notesLayout: CardView = binding.cardNote
-        val title: EditText = binding.tVTitle as EditText
-        val note: EditText = binding.tVNote as EditText
-
+        val title: TextView = binding.tVTitle
+        val note: TextView = binding.tVNote
     }
 
     //interface NotesClickListener {
-
-       // fun onItemClick(note: Note)
-
-        //fun onLongItemClicked(note: Note, cardView: CardView)
-
+    // fun onItemClick(note: Note)
+    //fun onLongItemClicked(note: Note, cardView: CardView)
     //}
-
 }
 

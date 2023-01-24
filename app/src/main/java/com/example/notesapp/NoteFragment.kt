@@ -1,6 +1,5 @@
 package com.example.notesapp
 
-import android.app.Application
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,17 +13,15 @@ import com.example.notesapp.models.Note
 import com.example.notesapp.models.NoteViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
-abstract class NoteFragment : Fragment(R.layout.fragment_note) {
+class NoteFragment : Fragment(R.layout.fragment_note) {
 
-
-    private var _binding : FragmentNoteBinding? = null
+    private var _binding: FragmentNoteBinding? = null
     private val binding get() = _binding!!
-
-    private lateinit var note : Note
-    private lateinit var oldNote : Note
+    // problema do seu crash está aqui também
+    private lateinit var note: Note
+    private lateinit var oldNote: Note
     private var isUpdated = false
-
-    private lateinit var viewModel : NoteViewModel
+    private lateinit var viewModel: NoteViewModel
     private lateinit var notesAdapter: NotesAdapter
 
 
@@ -33,49 +30,37 @@ abstract class NoteFragment : Fragment(R.layout.fragment_note) {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentNoteBinding.inflate(inflater,container,false)
+        _binding = FragmentNoteBinding.inflate(inflater, container, false)
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) = binding.run {
         super.onViewCreated(view, savedInstanceState)
-        binding.toolbar.setNavigationOnClickListener {
-            val title = binding.etTitle.text.toString()
-            val note = binding.etNote.text.toString()
-            val action = NoteFragmentDirections.actionNoteFragmentToHomeFragment2(title,note)
+        toolbar.setNavigationOnClickListener {
+            val title = etTitle.text.toString()
+            val note = etNote.text.toString()
+            val action = NoteFragmentDirections.actionNoteFragmentToHomeFragment2(title, note)
             findNavController().navigate(action)
-
-
-            viewModel = ViewModelProvider(
-                owner = this,
-                factory = ViewModelProvider.AndroidViewModelFactory.getInstance(application)
-
-
-
-            )
-
-
-
+            viewModel = ViewModelProvider(this@NoteFragment)[NoteViewModel::class.java]
+            // Vai precisar alterar isso aqui, eu to deixando o id como 1 só pra teste
+            // o banco vai precisar auto gerar o id das notas
+            viewModel.insertNote(Note(1, title, note))
         }
 
 
         binding.imgDelete.setOnClickListener {
-            MaterialAlertDialogBuilder(requireContext(),R.style.ThemeOverlay_App_MaterialAlertDialog)
-                .setTitle(resources.getString(R.string.alert_title))
+            MaterialAlertDialogBuilder(
+                requireContext(),
+                R.style.ThemeOverlay_App_MaterialAlertDialog
+            ).setTitle(resources.getString(R.string.alert_title))
                 .setMessage(resources.getString(R.string.alert))
-                .setPositiveButton(resources.getString(R.string.accept)) { dialog, which ->
+                .setPositiveButton(resources.getString(R.string.accept)) { _, _ ->
+                    // problema do crash está no lateinit que comentei acima
                     viewModel.deleteNote(note)
-
-
                 }
-                .setNegativeButton(resources.getString(R.string.decline)) { dialog, which ->
-
-                }
+                .setNegativeButton(resources.getString(R.string.decline)) { _, _ -> }
                 .setIcon(R.drawable.delete)
                 .show()
-
-
-
         }
     }
 }

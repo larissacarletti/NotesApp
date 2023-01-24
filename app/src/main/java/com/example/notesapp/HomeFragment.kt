@@ -1,20 +1,15 @@
 package com.example.notesapp
 
-import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
-
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.notesapp.adapter.NotesAdapter
 import com.example.notesapp.databinding.FragmentHomeBinding
-import com.example.notesapp.models.Note
 import com.example.notesapp.models.NoteViewModel
 
 class HomeFragment : Fragment(R.layout.fragment_home) {
@@ -23,7 +18,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private val binding get() = _binding!!
     private lateinit var adapter: NotesAdapter
     private lateinit var viewModel: NoteViewModel
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,6 +30,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel = ViewModelProvider(this)[NoteViewModel::class.java]
         initUI()
         binding.fabNote.setOnClickListener {
             val action = HomeFragmentDirections.actionHomeFragmentToNoteFragment()
@@ -44,25 +39,16 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     }
 
     private fun initUI() = binding.run {
-        recyclerView.setHasFixedSize(true)
-        recyclerView.layoutManager = StaggeredGridLayoutManager(2, LinearLayout.VERTICAL)
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
         adapter = NotesAdapter(requireContext(), this@HomeFragment)
         recyclerView.adapter = adapter
-
-        val getContent = registerForActivityResult(
-            ActivityResultContracts.StartActivityForResult()
-        ) { result ->
-            if (result.resultCode == Activity.RESULT_OK) {
-                val note = result.data?.getSerializableExtra("note") as? Note
-                if (note != null) viewModel.insertNote(note)
-            }
+        viewModel.allNotes.observe(viewLifecycleOwner) { noteList ->
+            adapter.updateList(noteList)
         }
     }
-
 
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
     }
 }
-
