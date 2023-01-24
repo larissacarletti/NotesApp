@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.notesapp.databinding.FragmentNoteBinding
 import com.example.notesapp.models.Note
+import com.example.notesapp.models.NoteViewModel
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class NoteFragment : Fragment(R.layout.fragment_note) {
 
@@ -17,6 +19,8 @@ class NoteFragment : Fragment(R.layout.fragment_note) {
     private lateinit var note : Note
     private lateinit var oldNote : Note
     private var isUpdated = false
+
+    private lateinit var viewModel : NoteViewModel
 
 
     override fun onCreateView(
@@ -31,9 +35,28 @@ class NoteFragment : Fragment(R.layout.fragment_note) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.toolbar.setNavigationOnClickListener {
-            TODO("Aqui em baixo que vai acontecer a lógica que quer realizar")
-            val action = NoteFragmentDirections.actionNoteFragmentToHomeFragment2("título aqui", "nota aqui")
+            val title = binding.etTitle.text.toString()
+            val note = binding.etNote.text.toString()
+            val action = NoteFragmentDirections.actionNoteFragmentToHomeFragment2(title,note)
             findNavController().navigate(action)
+        }
+
+
+        binding.imgDelete.setOnClickListener {
+            MaterialAlertDialogBuilder(requireContext(),R.style.ThemeOverlay_App_MaterialAlertDialog)
+                .setTitle(resources.getString(R.string.alert_title))
+                .setMessage(resources.getString(R.string.alert))
+                .setNegativeButton(resources.getString(R.string.decline)) { dialog, which ->
+
+                }
+                .setPositiveButton(resources.getString(R.string.accept)) { dialog, which ->
+                    viewModel.deleteNote(note)
+                }
+                .setIcon(R.drawable.delete)
+                .show()
+
+
+
         }
     }
 }

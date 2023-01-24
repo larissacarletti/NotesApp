@@ -13,4 +13,15 @@
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+
+    <style name="ThemeOverlay.App.MaterialAlertDialog" parent="ThemeOverlay.Material3.MaterialAlertDialog">
+        <item name="colorPrimary">@color/rose</item>
+        <item name="colorSecondary">@color/dark_pink</item>
+        <item name="colorSurface">@color/dark_pink</item>
+        <item name="colorOnSurface">@color/dark_pink</item>
+        <item name="materialAlertDialogTitleTextStyle">@style/MaterialAlertDialog.Material3</item>
+        <item name="buttonBarPositiveButtonStyle">@style/MaterialAlertDialog.Material3</item>
+        <item name="buttonBarNegativeButtonStyle">@style/MaterialAlertDialog.Material3</item>
+    </style>
 </resources>
