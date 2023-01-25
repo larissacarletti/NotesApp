@@ -42,9 +42,10 @@ class NoteFragment : Fragment(R.layout.fragment_note) {
             val action = NoteFragmentDirections.actionNoteFragmentToHomeFragment2(title, note)
             findNavController().navigate(action)
             viewModel = ViewModelProvider(this@NoteFragment)[NoteViewModel::class.java]
-            viewModel.insertNote(Note(title = title, note = note))
+            if(title.isNotEmpty() || note.isNotEmpty()) {
+                viewModel.insertNote(Note(title = title, note = note))
+            }
         }
-
 
         binding.imgDelete.setOnClickListener {
             MaterialAlertDialogBuilder(
