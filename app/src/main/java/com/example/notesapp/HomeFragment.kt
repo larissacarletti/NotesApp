@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.FragmentNavigator
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.notesapp.adapter.NotesAdapter
@@ -14,13 +13,14 @@ import com.example.notesapp.databinding.FragmentHomeBinding
 import com.example.notesapp.models.Note
 import com.example.notesapp.models.NoteViewModel
 
-class HomeFragment : Fragment(R.layout.fragment_home),NotesAdapter.NotesClickListener {
+class HomeFragment : Fragment(R.layout.fragment_home), NotesAdapter.NotesClickListener {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var selectedNote: Note
     private lateinit var adapter: NotesAdapter
     private lateinit var viewModel: NoteViewModel
-    private lateinit var selectedNote: Note
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,13 +34,14 @@ class HomeFragment : Fragment(R.layout.fragment_home),NotesAdapter.NotesClickLis
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this)[NoteViewModel::class.java]
-        initUI()
+        setupNoteList()
         binding.fabNote.setOnClickListener {
-            val action = HomeFragmentDirections.actionHomeFragmentToNoteFragment()
+            val action = HomeFragmentDirections.actionHomeFragmentToNoteFragment(null)
             findNavController().navigate(action)
         }
     }
-    private fun initUI() = binding.run {
+
+    private fun setupNoteList() = binding.run {
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         adapter = NotesAdapter(requireContext(), this@HomeFragment)
         recyclerView.adapter = adapter
@@ -48,17 +49,15 @@ class HomeFragment : Fragment(R.layout.fragment_home),NotesAdapter.NotesClickLis
             adapter.updateList(noteList)
         }
     }
+
     override fun onItemClicked(note: Note) {
         selectedNote = note
-        if(selectedNote.id != null) {
-            val action = HomeFragmentDirections.actionHomeFragmentToNoteFragment()
-            findNavController().navigate(action)
-        }
+        val action = HomeFragmentDirections.actionHomeFragmentToNoteFragment(note)
+        findNavController().navigate(action)
     }
+
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
     }
-
-
 }
