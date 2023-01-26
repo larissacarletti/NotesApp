@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.example.notesapp.adapter.NotesAdapter
+import androidx.navigation.fragment.navArgs
 import com.example.notesapp.databinding.FragmentNoteBinding
 import com.example.notesapp.models.Note
 import com.example.notesapp.models.NoteViewModel
@@ -17,49 +17,67 @@ class NoteFragment : Fragment(R.layout.fragment_note) {
 
     private var _binding: FragmentNoteBinding? = null
     private val binding get() = _binding!!
-    // problema do seu crash está aqui também
-    private lateinit var note: Note
-    private lateinit var oldNote: Note
-    private var isUpdated = false
+
+    private val args: NoteFragmentArgs by navArgs()
     private lateinit var viewModel: NoteViewModel
-    private lateinit var notesAdapter: NotesAdapter
+    private var note: Note? = null
 
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentNoteBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = binding.run {
         super.onViewCreated(view, savedInstanceState)
-        toolbar.setNavigationOnClickListener {
-            val title = etTitle.text.toString()
-            val note = etNote.text.toString()
-            val action = NoteFragmentDirections.actionNoteFragmentToHomeFragment2(title, note)
-            findNavController().navigate(action)
-            viewModel = ViewModelProvider(this@NoteFragment)[NoteViewModel::class.java]
-            if(title.isNotEmpty() || note.isNotEmpty()) {
-                viewModel.insertNote(Note(title = title, note = note))
-            }
-        }
+        viewModel = ViewModelProvider(this@NoteFragment)[NoteViewModel::class.java]
+        setupDialog()
+        setupToolbar()
+        setupOpenNote()
+    }
 
-        binding.imgDelete.setOnClickListener {
+    private fun setupDialog() = binding.run {
+        imgDelete.setOnClickListener {
             MaterialAlertDialogBuilder(
                 requireContext(),
                 R.style.ThemeOverlay_App_MaterialAlertDialog
-            ).setTitle(resources.getString(R.string.alert_title))
+            ).setIcon(R.drawable.delete)
                 .setMessage(resources.getString(R.string.alert))
-                .setPositiveButton(resources.getString(R.string.accept)) { _, _ ->
-                    // problema do crash está no lateinit que comentei acima
-                    viewModel.deleteNote(note)
-                }
+                .setTitle(resources.getString(R.string.alert_title))
                 .setNegativeButton(resources.getString(R.string.decline)) { _, _ -> }
-                .setIcon(R.drawable.delete)
-                .show()
+                .setPositiveButton(resources.getString(R.string.accept)) { _, _ ->
+                    note?.let { note -> viewModel.deleteNote(note) }
+                    findNavController().popBackStack()
+                }.show()
         }
+    }
+
+    private fun setupOpenNote() = binding.run {
+        note = args.note
+        etNote.setText(note?.note)
+        etTitle.setText(note?.title)
+    }
+
+    private fun setupToolbar() = binding.run {
+        toolbar.setNavigationOnClickListener {
+            findNavController().popBackStack()
+            val noteTitle = etTitle.text.toString()
+            val noteDescription = etNote.text.toString()
+            if (note == null) viewModel.insertNote(
+                Note(
+                    title = noteTitle,
+                    note = noteDescription
+                )
+            )
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }
