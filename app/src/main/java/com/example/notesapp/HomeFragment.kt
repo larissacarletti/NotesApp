@@ -51,7 +51,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), NotesAdapter.NotesClickLi
                 .setTitle(resources.getString(R.string.alert_title))
                 .setNegativeButton(resources.getString(R.string.decline)) { _, _ -> }
                 .setPositiveButton(resources.getString(R.string.accept)) { _, _ ->
-                    note?.let { note -> viewModel.deleteNote(note) }
+                    note?.let { note -> viewModel.deleteAllNotes() }
 
                 }.show()
 
