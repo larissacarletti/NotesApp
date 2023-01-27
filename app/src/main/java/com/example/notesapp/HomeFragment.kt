@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -23,13 +24,12 @@ class HomeFragment : Fragment(R.layout.fragment_home), NotesAdapter.NotesClickLi
     private lateinit var selectedNote: Note
     private lateinit var adapter: NotesAdapter
     private lateinit var viewModel: NoteViewModel
-    private var note: Note? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-         ): View {
+    ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -51,10 +51,8 @@ class HomeFragment : Fragment(R.layout.fragment_home), NotesAdapter.NotesClickLi
                 .setTitle(resources.getString(R.string.alert_title))
                 .setNegativeButton(resources.getString(R.string.decline)) { _, _ -> }
                 .setPositiveButton(resources.getString(R.string.accept)) { _, _ ->
-                    note?.let { note -> viewModel.deleteAllNotes() }
-
+                    viewModel.deleteAllNotes()
                 }.show()
-
 
         }
     }
