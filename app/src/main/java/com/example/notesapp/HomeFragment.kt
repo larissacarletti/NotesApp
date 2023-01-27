@@ -12,6 +12,8 @@ import com.example.notesapp.adapter.NotesAdapter
 import com.example.notesapp.databinding.FragmentHomeBinding
 import com.example.notesapp.models.Note
 import com.example.notesapp.models.NoteViewModel
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+
 
 class HomeFragment : Fragment(R.layout.fragment_home), NotesAdapter.NotesClickListener {
 
@@ -21,12 +23,13 @@ class HomeFragment : Fragment(R.layout.fragment_home), NotesAdapter.NotesClickLi
     private lateinit var selectedNote: Note
     private lateinit var adapter: NotesAdapter
     private lateinit var viewModel: NoteViewModel
+    private var note: Note? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+         ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -39,6 +42,21 @@ class HomeFragment : Fragment(R.layout.fragment_home), NotesAdapter.NotesClickLi
             val action = HomeFragmentDirections.actionHomeFragmentToNoteFragment(null)
             findNavController().navigate(action)
         }
+        binding.imgDeleteAll.setOnClickListener {
+            MaterialAlertDialogBuilder(
+                requireContext(),
+                R.style.ThemeOverlay_App_MaterialAlertDialog
+            ).setIcon(R.drawable.delete)
+                .setMessage(resources.getString(R.string.alert))
+                .setTitle(resources.getString(R.string.alert_title))
+                .setNegativeButton(resources.getString(R.string.decline)) { _, _ -> }
+                .setPositiveButton(resources.getString(R.string.accept)) { _, _ ->
+                    note?.let { note -> viewModel.deleteNote(note) }
+
+                }.show()
+
+
+        }
     }
 
     private fun setupNoteList() = binding.run {
@@ -47,7 +65,13 @@ class HomeFragment : Fragment(R.layout.fragment_home), NotesAdapter.NotesClickLi
         recyclerView.adapter = adapter
         viewModel.allNotes.observe(viewLifecycleOwner) { noteList ->
             adapter.updateList(noteList)
+            if (noteList.isEmpty()) {
+                imgDeleteAll.visibility = View.GONE
+            } else {
+                imgDeleteAll.visibility = View.VISIBLE
+            }
         }
+
     }
 
     override fun onItemClicked(note: Note) {

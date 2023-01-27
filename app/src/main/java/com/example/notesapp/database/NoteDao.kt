@@ -21,7 +21,7 @@ interface NoteDao {
     fun getAllNotes() : LiveData<List<Note>>
 
     @Query("DELETE FROM notes_table")
-    suspend fun deleteAllNotes(note: Note)
+    suspend fun deleteAllNotes()
 
 
 }

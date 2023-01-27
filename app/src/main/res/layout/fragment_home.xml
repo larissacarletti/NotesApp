@@ -19,6 +19,21 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="VisualLintBounds" />
 
+    <ImageView
+        android:id="@+id/imgDeleteAll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="false"
+        android:paddingEnd="15dp"
+        android:src="@drawable/delete"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/top_app_bar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </ImageView>
+
+
     <TextView
         android:id="@+id/headline"
         android:layout_width="294dp"

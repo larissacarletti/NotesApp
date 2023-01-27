@@ -11,4 +11,5 @@
     <string name="alert">Deseja realmente apagar essa anotação?</string>
     <string name="decline">Não</string>
     <string name="accept">Sim</string>
+    <string name="alertAll">Deseja realmente apagar todas as anotações?</string>
 </resources>
