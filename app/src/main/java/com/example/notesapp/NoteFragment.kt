@@ -21,8 +21,7 @@ class NoteFragment : Fragment(R.layout.fragment_note) {
     private val args: NoteFragmentArgs by navArgs()
     private lateinit var viewModel: NoteViewModel
     private var note: Note? = null
-    private val isUpdated = false
-    private lateinit var oldNote : Note
+
 
 
     override fun onCreateView(
@@ -69,21 +68,26 @@ class NoteFragment : Fragment(R.layout.fragment_note) {
             findNavController().popBackStack()
             val noteTitle = etTitle.text.toString()
             val noteDescription = etNote.text.toString()
-            if (note == null) {
-                viewModel.insertNote(
-                    Note(
-                        title = noteTitle,
-                        note = noteDescription
-                    )
-                )
-            } else {
-                viewModel.updateNote(
-                    Note(
-                        id = oldNote.id,
-                        title = noteTitle,
-                        note = noteDescription
-                    )
-                )
+            if(noteTitle.isNotEmpty() || noteDescription.isNotEmpty()){
+                 if (note == null) {
+                    viewModel.insertNote(
+                        Note(
+                            title = noteTitle,
+                            note = noteDescription
+                        )
+                     )
+                } else {
+                     note?.let { note ->
+                         viewModel.updateNote(
+                             Note(
+                                 id = note.id,
+                                 title = noteTitle,
+                                 note = noteDescription
+                             )
+                         )
+                     }
+
+                 }
             }
         }
     }
