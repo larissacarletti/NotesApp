@@ -1,3 +1,7 @@
+<h2 align="center">Anoty ✍🏻</h1>
+<h4 align="center"></h3
+<!--
+
 Simple note app using Room Database where you can Create, Read, Update and Delete a note. 
 
 
